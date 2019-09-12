@@ -4,7 +4,7 @@
 let
   src = {
     url = "https://code.devalot.com/sthenauth/zxcvbn-hs.git";
-    rev = "cf089bef42f922e697146dc29e0122537102d1e9";
+    rev = "788e794d3bf72a9393376d5a4c10fb942056eea6";
   };
 
   drv = import "${fetchGit src}/default.nix" { inherit pkgs; };

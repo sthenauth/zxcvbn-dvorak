@@ -1,5 +1,7 @@
-# Revision history for zxcvbn-dvorak
+Revision History for zxcvbn-dvorak
+==================================
 
-## 0.1.0.0 -- YYYY-mm-dd
+0.1.0.0 (September 12, 2019)
+----------------------------
 
-* First version. Released on an unsuspecting world.
+  * Initial release
