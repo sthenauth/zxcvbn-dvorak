@@ -1,17 +1,25 @@
-{ pkgs ? import <nixpkgs> {}
+{ pkgs ? import <nixpkgs> { }
 }:
 
 let
-  zxcvbn-hs = import ./zxcvbn-hs.nix { inherit pkgs; };
-
-  # Helpful if you want to override any Haskell packages:
-  overrides = self: super: with pkgs.haskell.lib; {
-    zxcvbn-hs = zxcvbn-hs;
+  nix-hs-src = fetchGit {
+    url = "https://code.devalot.com/open/nix-hs.git";
+    rev = "2003332a1e8e518b54e6143f9a9467a8a05abca4";
   };
 
-  # Apply the overrides from above:
-  haskell = pkgs.haskellPackages.override (orig: {
-    overrides = pkgs.lib.composeExtensions
-      (orig.overrides or (_: _: {})) overrides; });
+  nix-hs = import "${nix-hs-src}/default.nix" { inherit pkgs; };
 
-in haskell.callPackage ./zxcvbn-dvorak.nix { }
+  zxcvbn-hs-src = {
+    url = "https://code.devalot.com/sthenauth/zxcvbn-hs.git";
+    rev = "788e794d3bf72a9393376d5a4c10fb942056eea6";
+  };
+
+  zxcvbn-hs = import "${fetchGit zxcvbn-hs-src}/default.nix" { inherit pkgs; };
+
+in nix-hs {
+  cabal = ./zxcvbn-dvorak.cabal;
+
+  overrides = lib: self: super: with lib; {
+    zxcvbn-hs = zxcvbn-hs;
+  };
+}
