@@ -11,7 +11,7 @@ let
 
   zxcvbn-hs-src = {
     url = "https://code.devalot.com/sthenauth/zxcvbn-hs.git";
-    rev = "788e794d3bf72a9393376d5a4c10fb942056eea6";
+    rev = "07a224794f0299e4c066056841485e2d86d8b075";
   };
 
   zxcvbn-hs = import "${fetchGit zxcvbn-hs-src}/default.nix" { inherit pkgs; };
