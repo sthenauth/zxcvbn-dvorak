@@ -1,27 +1,27 @@
-{ pkgs ? import <nixpkgs> { }
+{ sources ? import ./nix/sources.nix
+, pkgs ? import sources.nixpkgs { }
+, nix-hs ? import sources.nix-hs { inherit pkgs; }
+, zxcvbn-hs ? sources.zxcvbn-hs
+, ghcide ? sources.ghcide-nix
+, ormolu ? sources.ormolu
+, ghc ? "default"
 }:
 
-let
-  nix-hs-src = fetchGit {
-    url = "https://code.devalot.com/open/nix-hs.git";
-    rev = "a2b666faf8cb3c6f769655dfb36f4695f78bc3c3";
-  };
-
-  nix-hs = import "${nix-hs-src}/default.nix" { inherit pkgs; };
-
-in nix-hs {
+nix-hs {
   cabal = ./zxcvbn-dvorak.cabal;
+  compiler = ghc;
 
   overrides = lib: self: super: with lib; {
-    zxcvbn-hs = lib.fetchGit {
-      url = "https://code.devalot.com/sthenauth/zxcvbn-hs.git";
-      rev = "5c522f929e7aff38cb477160ec89cf854cc1ecca";
-      ref = "next";
+    zxcvbn-hs = import zxcvbn-hs {
+      inherit (lib) pkgs;
+      inherit ghc;
     };
 
-    lens =
-      if super ? lens_4_18
-        then super.lens_4_18
-        else super.lens;
+    ghcide = import ghcide {};
+
+    ormolu = (import ormolu {
+      inherit (lib) pkgs;
+      ormoluCompiler = lib.compilerName;
+    }).ormolu;
   };
 }
