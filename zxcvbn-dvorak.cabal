@@ -41,7 +41,7 @@ common dependencies
   build-depends: base                 >= 4.9   && < 5.0
                , base64-bytestring    >= 1.0   && < 1.1
                , binary               >= 0.8   && < 0.11
-               , binary-instances     >= 1.0   && < 1.1
+               , binary-instances     >= 1     && < 1.1
                , containers           >= 0.6   && < 0.7
                , lens                 >= 4.17  && < 4.20
                , text                 >= 1.2   && < 1.3

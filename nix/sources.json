@@ -32,7 +32,7 @@
     "zxcvbn-hs": {
         "ref": "next",
         "repo": "https://github.com/sthenauth/zxcvbn-hs.git",
-        "rev": "d1c86ac29cc0fa52d328814d7fb28fa2cbe06d76",
+        "rev": "72dd8b711cd3de9125f4d070396a0c7f0175382a",
         "type": "git"
     }
 }
